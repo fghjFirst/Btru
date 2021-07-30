@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -192,7 +193,7 @@ namespace Btru.Data.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
         }
-
+        
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

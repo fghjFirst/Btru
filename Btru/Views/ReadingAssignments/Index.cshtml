@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Btru.Models.ReadingAssignment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 style="text-align:center">Todays reading</h2>
+@if (Model.Count() == 0)
+{
+    <p style="background-color:aliceblue">
+        Congratulations, you have read eavry book in our collection! But remember, you can alwys look for more to read while you wait for us to add more material.
+    </p>
+}
+else
+{
+    <table class="table" style="background-color:aliceblue">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var readingAss in Model)
+            {
+                <tr>
+                    <td>
+                        <span>@(readingAss.Book.Name) </span>
+                    </td>
+                    <td>
+                        <span>@(readingAss.Book.Author) </span>
+                    </td>
+                    <td>
+                        @if (readingAss.Reading == false)
+                        {<a asp-action="MarkAsRead" asp-route-id="@readingAss.Book.Id">Mark as Read</a>}
+                        @if (readingAss.Reading == true)
+                        {
+                            <a asp-action="UnMarkAsRead" asp-route-id="@readingAss.Book.Id">Unmark</a>
+                            @foreach (var fb in ViewBag.FavoriteBooks)
+                            {
+                                @if (fb.Book.Id == readingAss.Book.Id) { ViewBag.AlredyInFavorites = true; }
+                            }
+                            @if (!ViewBag.AlredyInFavorites)
+                            {
+                                <a asp-action="AddToFavorites" asp-route-id="@readingAss.Book.Id">Favorite</a>
+
+                            }
+                            else
+                            {
+                                <a asp-action="RemoveFromFavorites" asp-route-id="@readingAss.Book.Id">Remove From Favorites</a>
+                                ViewBag.AlredyInFavorites = false;
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+            <a asp-action="ChangeDay"> Change Day </a>
+
+        </tbody>
+
+    </table>
+}
+<h2>Top 3 most favorited books of all time</h2>
+
+<table class="table" style="background-color:aliceblue">
+
+    @foreach (string fav in ViewBag.TopFavorites)
+    {
+        <td>
+            @fav
+        </td>
+    }
+
+</table>

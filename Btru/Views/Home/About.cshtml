@@ -1,7 +1,28 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-
-<p>Use this area to provide additional information.</p>
+<h2>BTRU</h2>
+<h3>A website for a better you.</h3>
+<div style="background-color:aliceblue">
+    <p style="font-family:'Times New Roman', Times, serif;font-size:large">
+        Btru is a website that provides you with th tools nesseccery to improve yourself, be it mentally or physically.
+        Achieved through intuitive UI, lightning fast servers and groundbreaking design
+    </p>
+    <p style="font-family:'Times New Roman', Times, serif;font-size:large">
+        In that regard BTRU provides an easy way to manage the most effctive exerscise for the mind – reading.
+        Easily find new material as well as keep track of your favorite books with our daily reading and favorites features respectivly.
+        Dont know what to read? Not a problem simply read on of the most liked books across all users. Advaned algorithms deide YOUR
+        next assignment based on your previosly read and liked books alowing for a fun and interesting time while keeping up with your mental health
+    </p>
+    <p style="font-family:'Times New Roman', Times, serif;font-size:large">
+        Aside from reading we povide other ways for you to work on your mental health.
+        Did you know inconsistent sleep scheduals have been strongly linked to anxiaty and depretion?
+        Fear not, with BTRU you can keep track of the times you wake up and go to sleep.
+        Compleat with statistics on your overall sleeptime over time going to bed has never been easier!
+        Now you have no reason NOT to look after your mental and physical health!
+    </p>
+    @if (!User.Identity.IsAuthenticated)
+    {
+    <li><a asp-area="Identity" asp-page="/Account/Register">Register now</a></li>
+    }    
+</div>

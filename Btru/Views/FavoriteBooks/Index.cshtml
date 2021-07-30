@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Btru.Models.FavoriteBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Your favourite books</h2>
+
+
+<table class="table" style="background-color:aliceblue">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (FavoriteBook fb in Model) {
+        <tr>
+            <td>
+                @fb.Book.Name
+                @fb.Book.Author
+            </td>
+            <td>
+                <a asp-action="RemoveFromFavorites" asp-route-id="@fb.Id">Remove</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    @Html.ActionLink("Back to timeline", "Index", "Home")
+</p>

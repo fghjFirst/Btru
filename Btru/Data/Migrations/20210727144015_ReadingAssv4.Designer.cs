@@ -4,14 +4,16 @@ using Btru.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Btru.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210727144015_ReadingAssv4")]
+    partial class ReadingAssv4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace Btru.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<DateTime>("LastOnline")
-                        .HasColumnType("date");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -56,8 +55,6 @@ namespace Btru.Data.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<int>("UniqueReads");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -90,6 +87,28 @@ namespace Btru.Data.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("Btru.Models.CalendarEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired();
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ClendarEntries");
+                });
+
             modelBuilder.Entity("Btru.Models.FavoriteBook", b =>
                 {
                     b.Property<int>("Id")
@@ -120,8 +139,6 @@ namespace Btru.Data.Migrations
 
                     b.Property<bool>("Read");
 
-                    b.Property<bool>("Reading");
-
                     b.Property<string>("UserId")
                         .IsRequired();
 
@@ -145,10 +162,10 @@ namespace Btru.Data.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<TimeSpan?>("WentToSleep")
+                    b.Property<TimeSpan>("WentToSleep")
                         .HasColumnType("time");
 
-                    b.Property<TimeSpan?>("WokeUp")
+                    b.Property<TimeSpan>("WokeUp")
                         .HasColumnType("time");
 
                     b.HasKey("Id");
@@ -270,6 +287,14 @@ namespace Btru.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Btru.Models.CalendarEntry", b =>
+                {
+                    b.HasOne("Btru.Models.ApplicationUser", "User")
+                        .WithMany("Entries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Btru.Models.FavoriteBook", b =>

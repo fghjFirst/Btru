@@ -1,0 +1,19 @@
+﻿@model Btru.Models.ReadingAssignment
+
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to remove @Model.Book.Name by @Model.Book.Author from read?</h3>
+<div>
+    <h4>ReadingAssignment</h4>
+    <hr />
+    
+    <form asp-action="RemoveFromRead">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Yes, I'm sure" class="btn btn-default" /> |
+        <a asp-action="Index">No, nevermind</a>
+    </form>
+</div>

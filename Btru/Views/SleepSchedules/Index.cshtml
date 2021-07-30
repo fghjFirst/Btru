@@ -1,0 +1,17 @@
+﻿@model SleepSchedule
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 style="text-align:center">Todays sleep Logs</h2>
+
+<a asp-action="ChangeDay"> Change Day </a>
+
+<div style="background-color:aliceblue;align-items:center;text-align:center;height:700px">
+    <p style="font-size:xx-large">
+        Woke up at: @Model.WokeUp <a asp-action="EditWokeUp" asp-route-id="@Model.Id">Edit</a>
+        <br />
+        Went to sleep at: @Model.WentToSleep <a asp-action="EditWentToSleep" asp-route-id="@Model.Id">Edit</a>
+    </p>
+</div>

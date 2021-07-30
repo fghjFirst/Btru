@@ -6,8 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20210727073141_Favorite_BookAssV3.cs" />
+    <Compile Remove="Data\Migrations\20210727073141_Favorite_BookAssV3.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="SendGrid" Version="9.24.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\SleepSchedules\EditWentToSleep.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="images\" />
   </ItemGroup>
 
 </Project>

@@ -4,14 +4,16 @@ using Btru.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Btru.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210727073442_Favorite_BookAssV3")]
+    partial class Favorite_BookAssV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace Btru.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<DateTime>("LastOnline")
-                        .HasColumnType("date");
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -56,8 +55,6 @@ namespace Btru.Data.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<int>("UniqueReads");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
@@ -118,10 +115,6 @@ namespace Btru.Data.Migrations
 
                     b.Property<int>("BookId");
 
-                    b.Property<bool>("Read");
-
-                    b.Property<bool>("Reading");
-
                     b.Property<string>("UserId")
                         .IsRequired();
 
@@ -132,30 +125,6 @@ namespace Btru.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ReadingAssignments");
-                });
-
-            modelBuilder.Entity("Btru.Models.SleepSchedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<TimeSpan?>("WentToSleep")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan?>("WokeUp")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SleepSchedules");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -296,13 +265,6 @@ namespace Btru.Data.Migrations
                         .WithMany("Assignments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Btru.Models.SleepSchedule", b =>
-                {
-                    b.HasOne("Btru.Models.ApplicationUser", "User")
-                        .WithMany("SleepLogs")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

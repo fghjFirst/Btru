@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Btru.Models.ReadingAssignment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Your read books</h2>
+
+
+<table class="table" style="background-color:aliceblue">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ReadingAssignment ra in Model)
+        {
+            <tr>
+                <td>
+                    @ra.Book.Name
+                </td>
+                <td>
+                    @ra.Book.Author
+                </td>
+                <td>
+                    <a asp-action="RemoveFromRead" asp-route-id="@ra.Id">Remove</a>
+                    @foreach (FavoriteBook item in ViewBag.FavoriteBooks) { if (item.Book == ra.Book) { ViewBag.alreadyInFavorites = true; } }
+                    @if (!ViewBag.alreadyInFavorites)
+                    {<a asp-controller="ReadBooks" asp-action="AddToFavorites" asp-route-id="@ra.Book.Id"> Add to favorites</a>}
+                    @{ViewBag.alreadyInFavorites = false;}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+     @Html.ActionLink("Back to timeline", "Index", "Home")
+</p>

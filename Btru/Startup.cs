@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using Btru.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Btru.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Btru.Areas.Identity.Services;
 
 namespace Btru
 {
@@ -37,14 +40,16 @@ namespace Btru
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext db)
         {
             if (env.IsDevelopment())
             {
@@ -56,6 +61,8 @@ namespace Btru
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            db.Database.Migrate();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
